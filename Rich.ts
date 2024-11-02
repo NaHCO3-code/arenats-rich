@@ -71,7 +71,7 @@ export abstract class Rich {
       handler: obj => `Function ${(obj as Function).name}`
     },
     {
-      condition: obj => obj instanceof Object,
+      condition: obj => typeof obj === 'object',
       handler: (obj, depth, fn) => {
         if(Rich.visitedObj.has(obj)){
           return '(Circular Reference)'
