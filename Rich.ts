@@ -88,7 +88,7 @@ export abstract class Rich {
           .join(`,\n${ctxTab}`);
 
         Rich.visitedObj.delete(obj);
-        return `${obj.constructor.name} {\n${ctxTab}${ctx}\n${Rich.config.tabChar.repeat(depth)}}`;
+        return `${obj.constructor?.name ?? ""} {\n${ctxTab}${ctx}\n${Rich.config.tabChar.repeat(depth)}}`;
       }
     }
   ];
