@@ -36,7 +36,7 @@ Rich.print(world);
 ```
 
 输出结果：
-![alt text](image.png)
+![alt text](./image.png)
 
 # Configs
 
