@@ -10,7 +10,7 @@
 # Usage
 引入 Rich 对象
 ```ts
-import { Rich } from '@dao3fun/arena-rich'
+import Rich from '@dao3fun/arena-rich'
 ```
 
 使用`Rich.print()`输出各种内容
