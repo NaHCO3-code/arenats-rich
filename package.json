@@ -8,7 +8,7 @@
     "build": "tsc",
     "prepare": "npm run build"
   },
-  "files": ["lib/**/*"],
+  "files": ["lib/**/*", "image.png"],
   "devDependencies": {
     "typescript": "^5.6.3"
   }
