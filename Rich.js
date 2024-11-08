@@ -8,12 +8,12 @@
  * @todo 稀疏数组支持
  */
 export class Rich {
-    static output = true;
+    static enable = true;
     static config = {
         maxDepth: 5,
         maxLength: 40,
         placeholder: '(...)',
-        tabChar: '|---'
+        tab: '|---'
     };
     static visitedObj = new WeakSet();
     static handlers = [
@@ -27,7 +27,7 @@ export class Rich {
         },
         {
             condition: obj => typeof obj === 'string',
-            handler: obj => obj,
+            handler: obj => `"${obj}"`,
             cut: true
         },
         {
@@ -40,7 +40,7 @@ export class Rich {
         },
         {
             condition: (_, depth) => depth >= Rich.config.maxDepth,
-            handler: _ => '...'
+            handler: _ => this.config.placeholder
         },
         {
             condition: obj => obj instanceof Array,
@@ -65,37 +65,33 @@ export class Rich {
                 if (keys.length == 0) {
                     return '{}';
                 }
-                const ctxTab = Rich.config.tabChar.repeat(depth + 1);
+                const ctxTab = Rich.config.tab.repeat(depth + 1);
                 const ctx = keys
                     .map(key => `${key}: ${fn(obj[key], depth + 1)}`)
                     .join(`,\n${ctxTab}`);
                 Rich.visitedObj.delete(obj);
-                return `${obj.constructor?.name ?? ""} {\n${ctxTab}${ctx}\n${Rich.config.tabChar.repeat(depth)}}`;
+                return `${obj.constructor?.name ?? ""} {\n${ctxTab}${ctx}\n${Rich.config.tab.repeat(depth)}}`;
             }
         }
     ];
-    static toRichString(obj, depth = 0) {
+    static objToString(obj, depth = 0) {
         for (const handler of Rich.handlers) {
             if (!handler.condition(obj, depth)) {
                 continue;
             }
-            let ctx = handler.handler(obj, depth, Rich.toRichString);
+            let ctx = handler.handler(obj, depth, Rich.objToString);
             if (handler.cut && ctx.length >= Rich.config.maxLength) {
                 ctx = ctx.slice(0, Rich.config.maxLength / 2) + '...' + ctx.slice(-Rich.config.maxLength / 2);
             }
             return ctx;
         }
-        return `${typeof obj}(${obj.toString() ?? '...'})`;
+        return `${typeof obj}(${obj?.toString() ?? '...'})`;
     }
     static print(...args) {
-        if (!Rich.output) {
+        if (!Rich.enable) {
             return;
         }
-        let res = "";
-        for (let obj of args) {
-            res += Rich.toRichString(obj);
-            res += " ";
-        }
-        console.log(res);
+        const strs = args.map(obj => Rich.objToString(obj));
+        console.log(strs.join(" "));
     }
 }
