@@ -36,7 +36,8 @@ Rich.print(world);
 ```
 
 输出结果：
-![alt text](./image.png)
+
+![输出结果](https://static.codemao.cn/pickduck/BJ0rfYib1e.png?hash=Fq1qlcK65eIzEE-6p000YvkS0QFJ)
 
 # Configs
 
