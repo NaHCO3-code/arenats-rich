@@ -1,2 +1,2 @@
-import { Rich } from "./lib/Rich.d.ts"
+import { Rich } from "./lib/Rich.ts"
 export default Rich
