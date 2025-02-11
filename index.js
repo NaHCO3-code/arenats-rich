@@ -1,2 +1,1 @@
-import { Rich } from "./lib/Rich.js"
-export default Rich
+export { Rich, Logger } from "./lib/Rich.js"
