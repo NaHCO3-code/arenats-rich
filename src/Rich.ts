@@ -130,6 +130,6 @@ export class Logger{
       return;
     }
     const strs = args.map(obj => Rich.objToString(obj));
-    this.logFn(`${this.tag === "" ? `[${this.tag}] ` : ""}${strs.join(" ")}`);
+    this.logFn(`${this.tag !== "" ? `[${this.tag}] ` : ""}${strs.join(" ")}`);
   }
 }
