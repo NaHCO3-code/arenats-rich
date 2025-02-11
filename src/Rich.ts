@@ -25,7 +25,7 @@ export abstract class Rich {
 
   static config: RichConfig = {
     maxDepth: 5,
-    maxLength: 40,
+    maxLength: 80,
     placeholder: '(...)',
     tab: '|---'
   };
@@ -114,5 +114,22 @@ export abstract class Rich {
     }
     const strs = args.map(obj => Rich.objToString(obj));
     console.log(strs.join(" "));
+  }
+}
+
+export class Logger{
+  enabled: boolean = true;
+
+  constructor(
+    public logFn: (msg: string) => void = console.log,
+    public tag: string = ""
+  ){}
+
+  log(...args: any[]){
+    if(!this.enabled){
+      return;
+    }
+    const strs = args.map(obj => Rich.objToString(obj));
+    this.logFn(`[${this.tag}] strs.join(" ")`);
   }
 }
